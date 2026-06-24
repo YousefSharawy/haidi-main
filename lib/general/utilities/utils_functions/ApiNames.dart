@@ -1,0 +1,70 @@
+class ApiNames {
+  static const String baseUrl = "https://heidi.ip4s.com/api/v1/";
+  static const String branch = "1";
+  static const String registerClient = "RegisterClient";
+  static const String registrationCities = "RegistrationCities";
+  static const String homeSliders = "HomeSliders";
+  static const String homeCategories = "HomeCategories";
+  static const String providersByCategoryId = "ListProvidersByCategoryId";
+  static const String providerOffers = "ListProviderOffers";
+  static const String providerServices = "ListProviderServices";
+  static const String getServiceCart = "GetServiceCart";
+  static const String getServiceCartDetails = "GetServiceCartDetails";
+  static const String getProductCart = "GetProductCart";
+  static const String conditionForClient = "CondtionForClient";
+  static const String updateDataUser = "UpdateDataUser";
+  static const String addServiceToCart = "AddServiceToCart";
+  static const String addProductToCart = "AddProductToCart";
+  static const String removeServiceFromCart = "RemoveServiceFromCart";
+  static const String removeProductFromCart = "RemoveProductFromCart";
+  static const String createServiceOrder = "CreateServiceOrder";
+  static const String listServiceOrdersByStatus = "ListServiceOrdersByStatus";
+  static const String getProviderDates = "GetProviderDates";
+  static const String getServiceOrderDetailsForUser =
+      "GetServiceOrderDetailsForUser";
+  static const String changeLanguage = "ChangeLanguage";
+  static const String listMarketProducts = "ListMarketProducts";
+  static const String getProductDetails = "GetProductDetails";
+  static const String updateProductCountInCart = "UpdateProductCountInCart";
+  static const String listMarketSubCategories = "ListMarkeSubCategories";
+  static const String listProductsBySubCategoryId =
+      "ListProductsBySubCategoryId";
+  static const String useCopon = "UseCopon";
+  static const String createProductOrder = "CreateProductOrder";
+  static const String getSubCategories = "ListSubCategories";
+  static const String filterInSideCategory = "FilterInSideCategory";
+  static const String listProductOrdersByStatus = "ListProductOrdersByStatus";
+  static const String cancelMyServiceOrder = "CancleMyServiceOrder";
+  static const String rateServiceOrder = "RateServiceOrder";
+  static const String contacts = "Contacts";
+  static const String getProductOrderDetailsForUser =
+      "GetProductOrderDetailsForUser";
+  static const String finishMyProductOrder = "FinishMyProductOrder";
+  static const String getWallet = "GetWallet";
+  static const String clientSettings = "ClientSettings";
+  static const String clientNotifications = "ClientNotifications";
+  static const String searchWithText = "SearchWithText";
+
+  static const String aboutApp = "AboutUsForClient";
+  static const String terms = "CondtionForClient";
+  static const String login = "login";
+  static const String logout = "Logout";
+  static const String removeAccount = "RemoveAccount";
+  static const String sendCode = "ConfirmCodeRegister";
+  static const String resendCode = "ResendCode";
+  static const String repeatedQuestions = "FrequentlyAskedQuestions";
+  static const String switchNotify = "SwitchNotify";
+  static const String forgetPassword = "ForgetPassword";
+  static const String resetPassword = "ChangePasswordByCode";
+  static const String changePassword = "ChangePassward";
+  static const String contactUs = "ContactUs";
+  static const String clientAdvertismentMainCategories = "ClientAdvertismentMainCategories";
+  static const String allAdvertisements = "AllAdvertisements";
+  static const String filterAdvertisementByCategoryId = "FilterAdvertisementByCategoryId";
+  static const String clientAdvertisements = "ClientAdvertisements";
+  static const String addNewAdvertisement = "AddNewAdvertisement";
+  static const String updateAdvertisement = "UpdateAdvertisement";
+  static const String deleteAd= "DeleteAdvertisement";
+  static const String getUserAdvertisementById= "GetUserAdvertisementById";
+  static const String getUserAdvertisementByForEditById= "GetUserAdvertisementByForEditById";
+}

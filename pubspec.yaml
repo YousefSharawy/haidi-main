@@ -1,0 +1,231 @@
+name: base_flutter
+description: Mashaghl Haidy (customer) - re-platformed on Flutter 3.38 / Dart 3.10.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.10.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # ---- Network ----
+  dio: ^5.9.2
+  # ---- Storage ----
+  crypto: ^3.0.7
+  path: ^1.9.1
+  quiver: ^3.2.2
+  sqflite: '>=2.3.0 <3.0.0'
+  shared_preferences: ^2.5.5
+  # ---- Firebase / FCM ----
+  firebase_core: ^4.11.0
+  firebase_messaging: ^16.4.1
+  flutter_local_notifications: ^22.0.1
+  # ---- Maps & Location ----
+  google_maps_flutter: ^2.17.1
+  geocoding: ^4.0.0
+  geolocator: ^14.0.3
+  flutter_google_places_sdk: ^0.4.3   # was: flutter_google_places + google_maps_webservice (abandoned)
+  map: ^1.4.2                              # v2 is a breaking API rewrite; v1 keeps the Map widget
+  map_launcher: ^4.5.0
+  # ---- State management ----
+  bloc: ^9.2.1
+  flutter_bloc: ^9.1.1
+  equatable: ^2.0.8
+  # ---- UI / Widgets ----
+  flutter_staggered_grid_view: ^0.7.0
+  flutter_staggered_animations: ^1.1.1
+  liquid_pull_to_refresh: ^3.0.1
+  flutter_spinkit: ^5.2.2
+  google_fonts: ^8.1.0
+  cached_network_image: ^3.4.1
+  fluttertoast: '>=8.2.0 <10.0.0'
+  photo_view: ^0.15.0
+  flutter_easyloading: ^3.0.5
+  flutter_phoenix: ^1.1.1
+  flutter_carousel_widget: ^3.1.0      # was: flutter_swiper (hard-blocked, no null safety)
+  flutter_rounded_date_picker: ^3.0.4
+  material_design_icons_flutter: ^7.0.7296
+  flutter_html: ^3.0.0
+  animations: ^2.2.0
+  pin_code_fields: ^8.0.1                   # v9 is a different maintainer/API; v8 keeps classic widgets
+  modal_bottom_sheet: ^3.0.0
+  table_calendar: ^3.2.0
+  hijri_picker: ^5.0.0
+  badges: ^2.0.3                           # v2 keeps badgeColor/animationType API (v3 restructured)
+  persistent_bottom_nav_bar: ^6.2.1        # v5 uses removed ThemeData.backgroundColor; v6 required
+  flutter_rating_bar: ^4.0.1            # moved from dev_dependencies (used in app code)
+  # ---- Utils / Misc ----
+  url_launcher: ^6.3.2
+  intl: ^0.20.2
+  tf_validator: ^0.0.2
+  platform: ^3.1.6
+  image_picker: ^1.2.2
+  flutter_svg: ^2.3.0
+  share_plus: ^12.0.2                      # win32 5.x (v13 needs win32 6, conflicts with device_info_plus)
+  json_annotation: ^4.12.0
+  # ---- Syncfusion (NOTE: needs SyncfusionLicense.registerLicense before release) ----
+  syncfusion_flutter_core: '>=31.1.22 <33.0.0'
+  syncfusion_flutter_datepicker: '>=31.1.22 <33.0.0'
+  syncfusion_flutter_pdfviewer: '>=31.1.22 <33.0.0'
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  build_runner: ^2.15.0
+  json_serializable: ^6.14.0            # moved from dependencies (codegen tool)
+  flutter_launcher_icons: ^0.14.4       # moved from dependencies (codegen/CLI tool)
+
+# Renamed from legacy `flutter_icons:` -> `flutter_launcher_icons:`
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/app_icon.png"
+
+flutter:
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/anim/api_empty.json
+    - assets/anim/api_error.json
+    - assets/anim/delivery.json
+    - assets/anim/empty_cart.json
+    - assets/anim/success.json
+    - assets/images/aboutus.png
+    - assets/images/add.png
+    - assets/images/addd.png
+    - assets/images/appIcon.png
+    - assets/images/arrow.png
+    - assets/images/star.png
+    - assets/images/outline_star.png
+    - assets/images/half_star.png
+    - assets/images/map_image.png
+    - assets/images/arrow_poin.png
+    - assets/images/arrowpfofile.png
+    - assets/images/bell.png
+    - assets/images/mada.png
+    - assets/images/apple-pay.png
+    - assets/images/visa.png
+    - assets/images/biin.png
+    - assets/images/bin.png
+    - assets/images/calll.png
+    - assets/images/cam.png
+    - assets/images/cards.png
+    - assets/images/cart.png
+    - assets/images/logout.png
+    - assets/images/checkd.png
+    - assets/images/clock.png
+    - assets/images/close.png
+    - assets/images/deleteee.png
+    - assets/images/doc.png
+    - assets/images/excel.png
+    - assets/images/exit.png
+    - assets/images/scaffold.png
+    - assets/images/face.png
+    - assets/images/feather-share.png
+    - assets/images/empty_cart.png
+    - assets/images/file.png
+    - assets/images/facebook.png
+    - assets/images/instagram.png
+    - assets/images/twitter.png
+    - assets/images/linkedin.png
+    - assets/images/whatsapp.png
+    - assets/images/filter.png
+    - assets/images/wallet.png
+    - assets/images/sdad.png
+    - assets/images/flow.png
+    - assets/images/home_appbar.png
+    - assets/images/small_logo.png
+    - assets/images/coin.png
+    - assets/images/success_check.png
+    - assets/images/follow.png
+    - assets/images/group.png
+    - assets/images/heart.png
+    - assets/images/hearts.png
+    - assets/images/heartt.png
+    - assets/images/home.png
+    - assets/images/splash.png
+    - assets/images/icon.png
+    - assets/images/image.png
+    - assets/images/information.png
+    - assets/images/location.png
+    - assets/images/background.png
+    - assets/images/logo.png
+    - assets/images/mastercard.png
+    - assets/images/medal.png
+    - assets/images/minus.png
+    - assets/images/more.png
+    - assets/images/noti.png
+    - assets/images/pdf.png
+    - assets/images/person.png
+    - assets/images/picture.png
+    - assets/images/pocket.png
+    - assets/images/poket.png
+    - assets/images/purchases.png
+    - assets/images/purchese.png
+    - assets/images/Questionsbro.png
+    - assets/images/radio.png
+    - assets/images/radiobuttonon.png
+    - assets/images/Rectangle.png
+    - assets/images/report.png
+    - assets/images/saudi.png
+    - assets/images/search.png
+    - assets/images/setting.png
+    - assets/images/share.png
+    - assets/images/shopping-cart.png
+    - assets/images/sim.png
+    - assets/images/smallstar.png
+    - assets/images/snapchat.png
+    - assets/images/sound.png
+    - assets/images/staar.png
+    - assets/images/star.png
+    - assets/images/starr.png
+    - assets/images/starrr.png
+    - assets/images/starrrr.png
+    - assets/images/toggle.png
+    - assets/images/twitter.png
+    - assets/images/unfollow.png
+    - assets/images/user.png
+    - assets/images/video-player.png
+    - assets/images/view.png
+    - assets/images/word.png
+    - assets/images/zip.png
+    - assets/images/ads_inactive.png
+    - assets/lang/ar.json
+    - assets/lang/en.json
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/assets-and-images/#resolution-aware.
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.dev/assets-and-images/#from-packages
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/custom-fonts/#from-packages
+
+dependency_overrides:
+  win32: ^5.11.0
+  package_info_plus: 9.0.1                 # win32 5.x (geolocator pulls v10=win32 6, conflicts)

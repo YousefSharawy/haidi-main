@@ -1,0 +1,23 @@
+part of 'LoginWidgetsImports.dart';
+
+class BuildLoginButton extends StatelessWidget {
+  final LoginData loginData;
+
+  const BuildLoginButton({required this.loginData});
+
+  @override
+  Widget build(BuildContext context) {
+    // return DefaultButton(title: 'title',onTap: (){
+    //   Nav.navigateTo( Home(), navigatorType: NavigatorType.push);
+    // },);
+    return LoadingButton(
+      borderRadius: 40,
+      btnKey: loginData.btnKey,
+      title: tr(context, 'login'),
+      onTap: () => loginData.userLogin(context),
+      color: MyColors.primary,
+      textColor: MyColors.white,
+      margin: const EdgeInsets.symmetric(vertical: 10),
+    );
+  }
+}
