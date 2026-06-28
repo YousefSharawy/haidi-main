@@ -104,11 +104,8 @@ class PrevGenericHttp<T>{
       case ReturnType.Type:
         return dataKeyFun==null?data : Function.apply(dataKeyFun, [data]);
       case ReturnType.Model:
-        return  Function.apply(toJsonFunc, [dataKeyFun==null?data:
-        Function.apply(dataKeyFun, [data])
-        ]);
-      case ReturnType.Model:
-        return ;
+        return Function.apply(toJsonFunc, [dataKeyFun == null ? data :
+            Function.apply(dataKeyFun, [data])]);
       case ReturnType.List:
         return List<T>.from(
           dataKeyFun==null?data: Function.apply(dataKeyFun, [data]).map(

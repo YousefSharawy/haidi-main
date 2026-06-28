@@ -1,10 +1,10 @@
 import "dart:developer";
-import 'package:base_flutter/general/MyApp.dart';
 import "package:firebase_core/firebase_core.dart";
 import "package:firebase_messaging/firebase_messaging.dart";
 import 'package:flutter_bloc/flutter_bloc.dart';
 import "package:flutter_local_notifications/flutter_local_notifications.dart";
 
+import '../MyApp.dart';
 import '../../customer/models/setting_model.dart';
 import '../../customer/screens/notifications/notifications_imports.dart';
 import '../../customer/screens/order_details/order_details_imports.dart';
@@ -19,8 +19,8 @@ Future<void> backgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
 }
 
-void requestPermissions() {
-  flutterLocalNotificationsPlugin
+Future<void> requestPermissions() async {
+  await flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<
           IOSFlutterLocalNotificationsPlugin>()
       ?.requestPermissions(
@@ -28,13 +28,13 @@ void requestPermissions() {
         badge: true,
         sound: true,
       );
-  flutterLocalNotificationsPlugin
+  await flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<
           AndroidFlutterLocalNotificationsPlugin>()
       ?.requestNotificationsPermission();
 }
 
-void showNotification(RemoteMessage event, String payload) async {
+Future<void> showNotification(RemoteMessage event, String payload) async {
   var iOSPlatformChannelSpecifics = const DarwinNotificationDetails(
       presentAlert: true, presentBadge: true, presentSound: true);
   var androidPlatformChannelSpecifics = const AndroidNotificationDetails(
@@ -60,7 +60,7 @@ void showNotification(RemoteMessage event, String payload) async {
       notifications: count + 1));
 }
 
-void initLocalNotification() async {
+Future<void> initLocalNotification() async {
   const AndroidInitializationSettings initializationSettingsAndroid =
       AndroidInitializationSettings("notification");
 
@@ -71,15 +71,12 @@ void initLocalNotification() async {
     requestSoundPermission: false,
   );
 
-  const InitializationSettings initializationSettings = InitializationSettings(
+  const initializationSettings = InitializationSettings(
     android: initializationSettingsAndroid,
     iOS: initializationSettingsIOS,
   );
-  // await flutterLocalNotificationsPlugin.initialize(initializationSettings,onDidReceiveBackgroundNotificationResponse: (details) {
-  //   handleNotificationsTap(details.payload);
-  // },onDidReceiveNotificationResponse: (details) {
-  //   handleNotificationsTap(details.payload);
-  // },);
+  await flutterLocalNotificationsPlugin.initialize(settings: initializationSettings);
+
   NotificationAppLaunchDetails? details =
       await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
   if (details!.didNotificationLaunchApp) {
@@ -99,9 +96,11 @@ Future<void> registerNotification() async {
   );
 }
 
-void initializeFlutterFire() async => await registerNotification();
+Future<void> initializeFlutterFire() async {
+  await registerNotification();
+}
 
-handleNotificationsTap(String? payload) async {
+Future<void> handleNotificationsTap(String? payload) async {
   if (payload!.isEmpty || payload == '{}') {
     Nav.navigateTo(const Notifications(), navigatorType: NavigatorType.push);
   } else {
@@ -135,10 +134,17 @@ handleNotificationsTap(String? payload) async {
   }
 }
 
-void saveFcmToken() async {
+Future<void> saveFcmToken() async {
   try {
-    var token = await FirebaseMessaging.instance.getToken().timeout(const Duration(seconds: 3), onTimeout: () => "").catchError((e) => "");
-    print("Firebase Fcm token : ${token.toString()}");
+    var token = await FirebaseMessaging.instance
+        .getToken()
+        .timeout(const Duration(seconds: 3), onTimeout: () => "")
+        .catchError((e) => "");
+    if (token == null || token.isEmpty) {
+      print("Firebase FCM token unavailable or empty");
+    } else {
+      print("Firebase Fcm token : $token");
+    }
   } catch (e) {
     // FCM can fail to register (no Play Services / offline / bad config) -
     // don't let it throw an unhandled exception on startup.
@@ -146,12 +152,16 @@ void saveFcmToken() async {
   }
 }
 
-void setupNotifications() {
-  saveFcmToken();
-  initializeFlutterFire();
-  initLocalNotification();
-  requestPermissions();
-  FirebaseMessaging.onBackgroundMessage(backgroundHandler);
+bool _notificationsSetupComplete = false;
+
+Future<void> setupNotifications() async {
+  if (_notificationsSetupComplete) return;
+  _notificationsSetupComplete = true;
+
+  await saveFcmToken();
+  await initializeFlutterFire();
+  await initLocalNotification();
+  await requestPermissions();
   FirebaseMessaging.onMessage.listen((RemoteMessage event) {
     if (event.data != {}) {
       showNotification(event, "${event.data}");

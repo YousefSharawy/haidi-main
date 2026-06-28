@@ -11,7 +11,7 @@ import 'package:base_flutter/general/utilities/http/dio/http/GenericHttp.dart'
 /// backend starts responding, real data flows through and this is bypassed.
 /// Set [enabled] = false (or delete this) once the backend is connected.
 class MockApi {
-  static const bool enabled = true;
+  static const bool enabled = false;
 
   static int _seed = 0;
 

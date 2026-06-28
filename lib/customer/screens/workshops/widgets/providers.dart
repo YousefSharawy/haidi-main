@@ -30,8 +30,8 @@ class Providers extends StatelessWidget {
                     description: state.data[index].description ?? '',
                     showRate: state.data[index].rate! > 0,
                     location: state.data[index].location ?? '',
-                    lng: double.parse(state.data[index].lng ?? '0.0') ?? 0.0,
-                    lat: double.parse(state.data[index].lat ?? '0.0') ?? 0.0,
+                    lng: double.tryParse(state.data[index].lng ?? '0.0') ?? 0.0,
+                    lat: double.tryParse(state.data[index].lat ?? '0.0') ?? 0.0,
                   ),
               separatorBuilder: (context, index) => Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 25),

@@ -336,11 +336,15 @@ class DioHelper {
 
   _getHeader() async {
     String? token = GlobalState.instance.get("token");
-    return {
-      // 'Accept-Language': '${DioUtils.lang}',
+    final headers = <String, String>{
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
     };
+
+    if (token != null && token.trim().isNotEmpty) {
+      headers['Authorization'] = 'Bearer ${token.trim()}';
+    }
+
+    return headers;
   }
 
   void tokenExpired() async {

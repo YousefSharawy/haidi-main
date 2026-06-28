@@ -16,7 +16,7 @@ class _SplashState extends State<Splash> {
 
   _checkingData() async {
     if (!kIsWeb) {
-      setupNotifications();
+      await setupNotifications();
       FirebaseMessaging.instance
           .getInitialMessage()
           .then((RemoteMessage? message) {

@@ -24,10 +24,27 @@ class ProductImage extends StatelessWidget {
             padding: const EdgeInsetsDirectional.fromSTEB(25, 60, 0, 0),
             child: InkWell(
               onTap: () => Navigator.of(context).pop(),
-              child: Icon(
-                Icons.arrow_back,
-                color: MyColors.primary,
-                size: 25,
+              borderRadius: BorderRadius.circular(22),
+              // White circular background so the back arrow stays clearly visible
+              // over any image (incl. the red placeholder when the image is missing).
+              child: Container(
+                padding: const EdgeInsets.all(6),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 4,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Icon(
+                  Icons.arrow_back,
+                  color: MyColors.primary,
+                  size: 22,
+                ),
               ),
             ),
           ),

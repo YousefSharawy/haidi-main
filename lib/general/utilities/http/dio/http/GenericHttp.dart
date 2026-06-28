@@ -1,5 +1,4 @@
 import 'package:base_flutter/general/utilities/http/dio/dio_helper.dart';
-import 'package:base_flutter/general/utilities/http/dio/mock/mock_api.dart';
 import 'package:flutter/material.dart';
 
 enum ReturnType { Model, List, Type }
@@ -81,7 +80,7 @@ class GenericHttp<T> {
     bool refresh = true,
     Function(dynamic data)? toJsonFunc,
   }) async {
-    var data = MockApi.enabled ? null : await DioHelper(context: context, forceRefresh: refresh).get(
+    var data = await DioHelper(context: context, forceRefresh: refresh).get(
       url: name,  query: query,
     );
     return _returnDataFromType(
@@ -96,7 +95,7 @@ class GenericHttp<T> {
     bool? showLoader,
     Function(dynamic data)? toJsonFunc,
   }) async {
-    var data = MockApi.enabled ? null : await DioHelper(
+    var data = await DioHelper(
       context: context,
     ).post(url: name, body: json, showLoader: showLoader ?? true,query: query);
     return _returnDataFromType(
@@ -112,7 +111,7 @@ class GenericHttp<T> {
     bool? showLoader,
     Function(dynamic data)? toJsonFunc,
   }) async {
-    var data = MockApi.enabled ? null : await DioHelper(
+    var data = await DioHelper(
       context: context,
     ).put(url: name, body: json, showLoader: showLoader ?? true);
     return _returnDataFromType(
@@ -128,7 +127,7 @@ class GenericHttp<T> {
     bool? showLoader,
     Function(dynamic data)? toJsonFunc,
   }) async {
-    var data = MockApi.enabled ? null : await DioHelper(
+    var data = await DioHelper(
       context: context,
     ).patch(url: name, body: json, showLoader: showLoader ?? true);
     return _returnDataFromType(
@@ -144,7 +143,7 @@ class GenericHttp<T> {
     bool? showLoader,
     Function(dynamic data)? toJsonFunc,
   }) async {
-    var data = MockApi.enabled ? null : await DioHelper(
+    var data = await DioHelper(
       context: context,
     ).delete(url: name, body: json, showLoader: showLoader ?? true);
     return _returnDataFromType(
@@ -158,22 +157,6 @@ class GenericHttp<T> {
     Function(dynamic data)? dataKeyFun,
   ) async {
     try {
-      // DEMO/OFFLINE MODE: while enabled, build models directly from placeholder
-      // records (bypassing each endpoint's returnDataFun, since some return a
-      // bare list and others a {data:[...]} wrapper) so content renders no matter
-      // the shape. Auto-bypassed once a real backend responds and enabled=false.
-      if (MockApi.enabled) {
-        switch (returnType) {
-          case ReturnType.List:
-            return List<T>.from(
-                MockApi.list().map((e) => Function.apply(toJsonFunc, [e])));
-          case ReturnType.Model:
-            return Function.apply(toJsonFunc, [MockApi.item()]);
-          case ReturnType.Type:
-            data = MockApi.bodyFor(ReturnType.Type);
-            break;
-        }
-      }
       switch (returnType) {
         case ReturnType.Type:
           return dataKeyFun == null ? data : Function.apply(dataKeyFun, [data]);

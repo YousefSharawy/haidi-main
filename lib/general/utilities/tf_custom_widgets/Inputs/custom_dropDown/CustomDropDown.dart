@@ -507,7 +507,7 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
     final RenderBox popupButtonObject = context.findRenderObject() as RenderBox;
     // Get the render object of the overlay used in `Navigator` / `MaterialApp`, i.e. screen size reference
     final RenderBox overlay =
-        Overlay.of(context)!.context.findRenderObject() as RenderBox;
+        Overlay.of(context).context.findRenderObject() as RenderBox;
     // Calculate the show-up area for the dropdown using button's size & position based on the `overlay` used as the coordinate space.
     final RelativeRect position = RelativeRect.fromSize(
       Rect.fromPoints(

@@ -7,7 +7,6 @@ class GeneralAdsData {
   late GenericBloc<bool> isPaginateLoading;
   late GenericBloc<bool> last;
   late GenericBloc<List<AdsSubCategoriesModel>> subCategoriesCubit;
-  late ScrollController _scrollController;
   List<GeneralAdModel> adsList = [];
   int currentPage = 1;
   bool nextPage = true;
@@ -19,7 +18,6 @@ class GeneralAdsData {
     isPaginateLoading = GenericBloc(false);
     last = GenericBloc(false);
     subCategoriesCubit = GenericBloc([]);
-    _scrollController = ScrollController();
     getGeneralAds(context, firstTime: true);
     getAdsSubCategories(context);
   }
