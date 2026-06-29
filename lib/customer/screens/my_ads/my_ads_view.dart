@@ -101,9 +101,15 @@ class _MyAdsState extends State<MyAds> {
           )
       ]),
       bottom: DefaultButton(
-        onTap: () {
-          Nav.navigateTo(MyAdsDetails(edit: false),
+        onTap: () async {
+          await Nav.navigateTo(MyAdsDetails(edit: false),
               navigatorType: NavigatorType.push);
+          // Reload after returning so a newly added ad shows up immediately
+          // (the screen state is kept alive, so initState won't run again).
+          myAdsData.currentPage = 1;
+          myAdsData.last.onUpdateData(false);
+          myAdsData.isLoading.onUpdateData(true);
+          myAdsData.getGeneralAds(context, firstTime: true);
         },
         title: tr(context, 'addAd'),
         margin: EdgeInsets.zero,

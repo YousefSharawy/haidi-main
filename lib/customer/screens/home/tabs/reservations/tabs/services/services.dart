@@ -21,7 +21,13 @@ class _ServicesState extends State<Services> {
     return RefreshIndicator(
       onRefresh: () =>
           servicesData.getOrders(context, servicesData.index.state.data + 1),
-      child: ListView(padding: EdgeInsets.zero, children: [
+      child: ListView(
+          padding: EdgeInsets.zero,
+          // Allow overscroll even when the list is empty/short so pull-to-refresh
+          // works (the reservations tab is kept alive and won't auto-reload after
+          // a new order is placed).
+          physics: const AlwaysScrollableScrollPhysics(),
+          children: [
         ServicesTabBar(servicesData: servicesData),
         BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
           bloc: servicesData.isLoading,
@@ -61,7 +67,7 @@ class _ServicesState extends State<Services> {
                           return Padding(
                             padding: const EdgeInsets.only(top: 100),
                             child: MyText(
-                                title: 'لا يوجد طلبات',
+                                title: tr(context, 'noOrders'),
                                 size: 19,
                                 color: MyColors.primary,
                                 alien: TextAlign.center),

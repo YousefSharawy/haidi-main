@@ -1,6 +1,6 @@
 part of 'payment_imports.dart';
 
-class Payment extends StatelessWidget {
+class Payment extends StatefulWidget {
   final String providerId;
   final String price;
   final String deliveryPrice;
@@ -19,8 +19,18 @@ class Payment extends StatelessWidget {
       required this.providerId});
 
   @override
+  State<Payment> createState() => _PaymentState();
+}
+
+class _PaymentState extends State<Payment> {
+  // Created once and kept stable for the life of the screen. Previously this
+  // lived inside build(), so any rebuild produced a fresh locationCubit +
+  // controller — orphaning the cubit the location picker emits into, which is
+  // why a picked location never showed up in the field.
+  final PaymentData paymentData = PaymentData();
+
+  @override
   Widget build(BuildContext context) {
-    final PaymentData paymentData = PaymentData();
     List<String> paymentImages = [
       Res.wallet,
       Res.mastercard,
@@ -89,13 +99,13 @@ class Payment extends StatelessWidget {
       ],
       bottom: TotalContainer(
         paymentData: paymentData,
-        price: price,
-        deliveryPrice: deliveryPrice,
-        tax: tax,
-        discount: discount,
-        totalPrice: totalPrice,
-        vatPrice: vatPrice,
-        providerId: providerId,
+        price: widget.price,
+        deliveryPrice: widget.deliveryPrice,
+        tax: widget.tax,
+        discount: widget.discount,
+        totalPrice: widget.totalPrice,
+        vatPrice: widget.vatPrice,
+        providerId: widget.providerId,
       ),
     );
   }

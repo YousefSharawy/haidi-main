@@ -22,7 +22,13 @@ class _ProductsState extends State<Products> {
       color: MyColors.primary,
       onRefresh: () => productsData.getProductOrders(
           context, productsData.index.state.data + 1),
-      child: ListView(padding: EdgeInsets.zero, children: [
+      child: ListView(
+          padding: EdgeInsets.zero,
+          // Allow overscroll even when the list is empty/short so pull-to-refresh
+          // works (the reservations tab is kept alive and won't auto-reload after
+          // a new order is placed).
+          physics: const AlwaysScrollableScrollPhysics(),
+          children: [
         ProductsTabBar(productsData: productsData),
         BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
           bloc: productsData.isLoading,
@@ -61,7 +67,7 @@ class _ProductsState extends State<Products> {
                           return Padding(
                             padding: const EdgeInsets.only(top: 100),
                             child: MyText(
-                                title: 'لا يوجد طلبات',
+                                title: tr(context, 'noOrders'),
                                 size: 19,
                                 color: MyColors.primary,
                                 alien: TextAlign.center),

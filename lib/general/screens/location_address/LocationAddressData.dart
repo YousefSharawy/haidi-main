@@ -36,9 +36,20 @@ class LocationAddressData {
   /// method user to change and customize the shape of marker
 
   void saveChangedLocation(BuildContext context) async {
-    if (locationModel.address.isEmpty) {
-      CustomToast.showToastNotification(tr(context, "selectLocationOnMap"));
-      return;
+    // The address is filled in asynchronously by reverse-geocoding
+    // (onCameraIdle -> getLocationAddress). If the user taps save before that
+    // finished, or geocoding is unavailable, try to resolve it once here.
+    if (locationModel.address.trim().isEmpty) {
+      final resolved = await Utils.getAddress(
+          LatLng(locationModel.lat, locationModel.lng), context);
+      locationModel.address = resolved.trim();
+    }
+    // Fall back to the coordinates so the save still works when
+    // reverse-geocoding returns nothing (offline/emulator). The payment form
+    // only needs a non-empty location string.
+    if (locationModel.address.trim().isEmpty) {
+      locationModel.address =
+          "${locationModel.lat.toStringAsFixed(6)}, ${locationModel.lng.toStringAsFixed(6)}";
     }
     context
         .read<LocationCubit>()

@@ -60,8 +60,26 @@ class _GeneralAdsState extends State<GeneralAds> {
   @override
   Widget build(BuildContext context) {
     return HomeScaffold(
-      child: ListView(
+      child: RefreshIndicator(
+        color: MyColors.primary,
+        onRefresh: () async {
+          // The ads tab is kept alive (PersistentTabView), so it never reloads
+          // on its own. Pull-to-refresh re-fetches the current tab so ads added
+          // elsewhere (e.g. from My Ads) appear without restarting the app.
+          generalAdsData.currentPage = 1;
+          generalAdsData.last.onUpdateData(false);
+          final idx = generalAdsData.index.state.data;
+          if (idx == 0) {
+            await generalAdsData.getGeneralAds(context, firstTime: true);
+          } else {
+            await generalAdsData.getProductsBySubCategoryId(context,
+                generalAdsData.subCategoriesCubit.state.data[idx].id!,
+                firstTime: true);
+          }
+        },
+        child: ListView(
         controller: _scrollController,
+        physics: const AlwaysScrollableScrollPhysics(),
         padding: EdgeInsets.only(top: 0, bottom: 40),
         children: [
           GeneralAdsAppBar(),
@@ -172,6 +190,7 @@ class _GeneralAdsState extends State<GeneralAds> {
             },
           )
         ],
+      ),
       ),
     );
   }
