@@ -1,5 +1,5 @@
 class ApiNames {
-  static const String baseUrl = "https://63.181.125.139/api/v1/";
+  static const String baseUrl = "https://api.heidi.services/api/v1/";
   static const String branch = "1";
   static const String registerClient = "RegisterClient";
   static const String registrationCities = "RegistrationCities";

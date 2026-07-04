@@ -1,5 +1,4 @@
 
-import 'dart:io';
 import 'dart:developer';
 
 import 'package:base_flutter/general/blocks/auth_cubit/auth_cubit.dart';
@@ -14,22 +13,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'general/MyApp.dart';
 
-class MyHttpOverrides extends HttpOverrides {
-  @override
-  HttpClient createHttpClient(SecurityContext? context) {
-    return super.createHttpClient(context)
-      ..badCertificateCallback =
-          (X509Certificate cert, String host, int port) => true;
-  }
-}
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // DEMO MODE: render a blank placeholder instead of the red error screen if a
   // widget fails to build (e.g. unexpected null while the API is offline).
   ErrorWidget.builder = (FlutterErrorDetails details) => const SizedBox.shrink();
   if (!kIsWeb) {
-    HttpOverrides.global = MyHttpOverrides();
     try {
       await Firebase.initializeApp();
       // await FirebaseMessaging.onBackgroundMessage(backgroundHandler);
